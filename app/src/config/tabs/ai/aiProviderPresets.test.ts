@@ -46,6 +46,16 @@ describe("AI provider presets", () => {
         assert.equal(getDefaultProviderProtocol("openai"), "openai-responses");
     });
 
+    it("includes the official Hostinger AI Router OpenAI-compatible preset", () => {
+        const preset = PROVIDER_PRESETS.find(item => item.id === "hostinger-ai-router");
+        assert.equal(preset?.name, "Hostinger AI Router");
+        assert.equal(preset?.baseURL, "https://router.hostinger.com/v1");
+        assert.equal(preset?.category, "aggregator");
+        assert.equal(preset?.responsesSupport, "supported");
+        assert.equal(findProviderPreset("https://router.hostinger.com/v1/")?.id, "hostinger-ai-router");
+        assert.equal(getDefaultProviderProtocol("hostinger-ai-router"), "openai");
+    });
+
     it("reports known and custom Responses compatibility", () => {
         assert.equal(getResponsesSupport("https://api.deepseek.com"), "supported");
         assert.equal(getResponsesSupport("https://open.bigmodel.cn/api/paas/v4"), "unsupported");
